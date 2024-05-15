@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Admin Panel</h2>
+        <a href="{{ url_for('add_movie') }}" class="btn btn-primary">Add Movie</a>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Genre</th>
+                    <th>Film Rating</th>
+                    <th>Duration</th>
+                    <th>Cast</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Image</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for movie in movies %}
+                <tr>
+                    <td>{{ movie.title }}</td>
+                    <td>{{ movie.description }}</td>
+                    <td>{{ movie.genre }}</td>
+                    <td>{{ movie.film_rating }}</td>
+                    <td>{{ movie.duration }}</td>
+                    <td>{{ movie.cast }}</td>
+                    <td>{{ movie.start_date }}</td>
+                    <td>{{ movie.end_date }}</td>
+                    <td><img src="{{ url_for('static', filename='images/' ~ movie.image) }}" alt="{{ movie.title }}" width="50"></td>
+                    <td>
+                        <a href="{{ url_for('edit_movie', movie_id=movie.id) }}" class="btn btn-warning">Edit</a>
+                        <form action="{{ url_for('delete_movie', movie_id=movie.id) }}" method="POST" style="display:inline;">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

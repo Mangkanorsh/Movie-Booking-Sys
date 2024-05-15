@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Movie</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .seat {
+            width: 30px;
+            height: 30px;
+            margin: 5px;
+            text-align: center;
+            line-height: 30px;
+            border-radius: 5px;
+        }
+        .available-seat {
+            background-color: green;
+            color: white;
+        }
+        .taken-seat {
+            background-color: red;
+            color: white;
+            pointer-events: none;
+        }
+        .pwd-seat {
+            background-color: blue;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Book Movie: {{ movie.title }}</h2>
+        <p>Price: PHP {{ movie.price }}</p>
+        <a href="{{ url_for('user') }}" class="btn btn-secondary mb-3">Back to User Page</a>
+        <form method="POST">
+            <div class="form-group">
+                <label for="timeslot">Timeslot</label>
+                <select name="timeslot" id="timeslot" class="form-control" required>
+                    <option value="10am-1pm">10am-1pm</option>
+                    <option value="1:10pm-4:10pm">1:10pm-4:10pm</option>
+                    <option value="4:20pm-7:20pm">4:20pm-7:20pm</option>
+                    <option value="7:30pm-10:30pm">7:30pm-10:30pm</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="date">Date</label>
+                <input type="date" name="date" id="date" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="is_pwd_senior">Are you a PWD or a Senior?</label>
+                <input type="checkbox" name="is_pwd_senior" id="is_pwd_senior" value="1"> Yes
+            </div>
+            <div class="form-group">
+                <label for="seats">Seats</label>
+                <div id="seat-selection">
+                    {% for row in range(1, 11) %}
+                        <div class="seat-row">
+                            {% for seat in range(1, 11) %}
+                                {% set seat_id = row|string + '-' + seat|string %}
+                                {% set seat_class = 'available-seat' %}
+                                {% if seat_id in taken_seats %}
+                                    {% set seat_class = 'taken-seat' %}
+                                {% elif seat_class == 'pwd-seat' %}
+                                    {% set seat_class = 'pwd-seat' %}
+                                {% endif %}
+                                <input type="checkbox" name="seats" value="{{ seat_id }}" id="{{ seat_id }}" class="seat {{ seat_class }}"
+                                       {% if seat_class != 'available-seat' %} disabled {% endif %}>
+                                <label for="{{ seat_id }}" class="seat {{ seat_class }}">{{ seat_id }}</label>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Book Now</button>
+        </form>
+    </div>
+</body>
+</html>

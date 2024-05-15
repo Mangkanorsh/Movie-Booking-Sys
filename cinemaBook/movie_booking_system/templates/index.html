@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Booking System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Welcome to the Movie Booking System</h2>
+        <a href="{{ url_for('signup') }}" class="btn btn-primary">Sign Up</a>
+        <a href="{{ url_for('login') }}" class="btn btn-secondary">Login</a>
+    </div>
+</body>
+</html>

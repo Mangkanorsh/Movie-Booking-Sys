@@ -1,0 +1,21 @@
+movie_booking_system/
+├── app.py
+├── config.py
+├── static/
+│   ├── css/
+│   │   └── styles.css
+│   ├── js/
+│   │   └── scripts.js
+│   └── images/
+├── templates/
+│   ├── admin.html
+│   ├── index.html
+│   ├── login.html
+│   ├── signup.html
+│   ├── user.html
+│   ├── add_movie.html
+│   ├── update_movie.html
+│   ├── book_movie.html
+│   ├── cart.html
+│   └── profile.html
+└── __init__.py
